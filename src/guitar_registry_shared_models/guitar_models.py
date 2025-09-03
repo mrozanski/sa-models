@@ -7,19 +7,20 @@ replacing the JSON schema validation in the guitar registry system.
 
 from datetime import date
 from decimal import Decimal
+from enum import Enum
 from typing import List, Optional, Union
 from pydantic import BaseModel, Field, field_validator, model_validator, HttpUrl
 
 
 # Enums
-class ManufacturerStatus(str):
+class ManufacturerStatus(str, Enum):
     """Manufacturer operational status."""
     ACTIVE = "active"
     DEFUNCT = "defunct"
     ACQUIRED = "acquired"
 
 
-class ProductionType(str):
+class ProductionType(str, Enum):
     """Guitar production type."""
     MASS = "mass"
     LIMITED = "limited"
@@ -28,7 +29,7 @@ class ProductionType(str):
     ONE_OFF = "one-off"
 
 
-class SignificanceLevel(str):
+class SignificanceLevel(str, Enum):
     """Historical significance of a guitar."""
     HISTORIC = "historic"
     NOTABLE = "notable"
@@ -36,7 +37,7 @@ class SignificanceLevel(str):
     CUSTOM = "custom"
 
 
-class ConditionRating(str):
+class ConditionRating(str, Enum):
     """Guitar condition rating."""
     MINT = "mint"
     EXCELLENT = "excellent"
@@ -47,7 +48,7 @@ class ConditionRating(str):
     RELIC = "relic"
 
 
-class SourceType(str):
+class SourceType(str, Enum):
     """Type of data source."""
     MANUFACTURER_CATALOG = "manufacturer_catalog"
     AUCTION_RECORD = "auction_record"
@@ -58,7 +59,7 @@ class SourceType(str):
     PRICE_GUIDE = "price_guide"
 
 
-class FinishRarity(str):
+class FinishRarity(str, Enum):
     """Rarity level of a guitar finish."""
     COMMON = "common"
     UNCOMMON = "uncommon"
