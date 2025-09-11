@@ -59,13 +59,7 @@ class SourceType(str, Enum):
     PRICE_GUIDE = "price_guide"
 
 
-class FinishRarity(str, Enum):
-    """Rarity level of a guitar finish."""
-    COMMON = "common"
-    UNCOMMON = "uncommon"
-    RARE = "rare"
-    VERY_RARE = "very_rare"
-    EXTREMELY_RARE = "extremely_rare"
+
 
 
 # Core Models
@@ -95,8 +89,7 @@ class Model(BaseModel):
     msrp_original: Optional[Decimal] = Field(None, ge=0, description="Original retail price")
     currency: str = Field("USD", max_length=3, description="ISO currency code")
     description: Optional[str] = Field(None, description="Detailed description of the model")
-    specifications: Optional["Specifications"] = Field(None, description="Technical specifications")
-    finishes: Optional[List["Finish"]] = Field(None, description="Available finishes")
+    specifications: Optional[Union["Specifications", List["Specifications"]]] = Field(None, description="Technical specifications (single object or array for multiple variants)")
 
 
 class IndividualGuitar(BaseModel):
@@ -172,24 +165,16 @@ class Specifications(BaseModel):
     nut_width_inches: Optional[float] = Field(None, ge=1.0, le=2.5, description="Width of nut in inches")
     neck_profile: Optional[str] = Field(None, max_length=50, description="Neck shape profile")
     bridge_type: Optional[str] = Field(None, max_length=50, description="Type of bridge")
-    pickup_configuration: Optional[str] = Field(None, max_length=20, description="Pickup arrangement (e.g., 'HH', 'SSS')")
-    pickup_brand: Optional[str] = Field(None, max_length=50, description="Brand of pickups")
-    pickup_model: Optional[str] = Field(None, max_length=100, description="Model of pickups")
+    pickup_configuration: Optional[str] = Field(None, max_length=150, description="Pickup styles, brand, and arrangement (e.g., '2 x single coils (SS)', '2 x PAF humbuckers', 'Seymour Duncan JB TB-4 humbucker in the bridge and two Seymour Duncan SSL-6 single coils in the middle and neck positions')")
     electronics_description: Optional[str] = Field(None, description="Description of electronics and controls")
     hardware_finish: Optional[str] = Field(None, max_length=50, description="Finish of hardware")
-    body_finish: Optional[str] = Field(None, max_length=100, description="Finish of guitar body")
+    body_finish: Optional[str] = Field(None, description="Finish of guitar body (e.g., 'Nitrocellulose Cherry Sunburst', 'Olympic White, Lake placid Blue', 'Sandblasted satin urethane, multiple colors')")
     weight_lbs: Optional[float] = Field(None, ge=1, le=20, description="Weight in pounds")
     case_included: Optional[bool] = Field(None, description="Whether case was included")
     case_type: Optional[str] = Field(None, max_length=50, description="Type of case if included")
 
 
-class Finish(BaseModel):
-    """Guitar finish information."""
-    
-    finish_name: str = Field(..., max_length=100, description="Name of the finish")
-    finish_type: Optional[str] = Field(None, max_length=50, description="Type of finish (e.g., 'Nitrocellulose')")
-    rarity: FinishRarity = Field(FinishRarity.COMMON, description="Rarity level of the finish")
-    notes: Optional[str] = Field(None, description="Additional notes about the finish")
+
 
 
 class Photo(BaseModel):
@@ -208,7 +193,7 @@ class GuitarSubmission(BaseModel):
     manufacturer: Optional[Manufacturer] = Field(None, description="Manufacturer information (if new)")
     model: Optional[Model] = Field(None, description="Model information (if new)")
     individual_guitar: IndividualGuitar = Field(..., description="Individual guitar data (required)")
-    source_attribution: SourceAttribution = Field(..., description="Source attribution (required)")
+    source_attribution: Optional[SourceAttribution] = Field(None, description="Source attribution (optional)")
     
     @model_validator(mode='after')
     def validate_submission_structure(self) -> 'GuitarSubmission':

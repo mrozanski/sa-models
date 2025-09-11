@@ -12,7 +12,6 @@ from .guitar_models import (
     IndividualGuitar,
     SourceAttribution,
     Specifications,
-    Finish,
     
     # Composite models
     GuitarSubmission,
@@ -24,7 +23,6 @@ from .guitar_models import (
     SignificanceLevel,
     ConditionRating,
     SourceType,
-    FinishRarity,
 )
 
 from .validation import (
@@ -47,7 +45,6 @@ __all__ = [
     "IndividualGuitar",
     "SourceAttribution",
     "Specifications",
-    "Finish",
     
     # Composite models
     "GuitarSubmission",
@@ -59,7 +56,6 @@ __all__ = [
     "SignificanceLevel",
     "ConditionRating",
     "SourceType",
-    "FinishRarity",
     
     # Validation functions
     "validate_guitar_submission",

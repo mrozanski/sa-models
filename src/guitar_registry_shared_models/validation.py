@@ -16,7 +16,6 @@ from .guitar_models import (
     IndividualGuitar,
     SourceAttribution,
     Specifications,
-    Finish,
 )
 
 
@@ -121,12 +120,7 @@ def validate_individual_components(data: Dict[str, Any]) -> Dict[str, Any]:
         except ValidationError as e:
             errors.extend([f"Specifications validation failed: {err}" for err in e.errors()])
     
-    # Validate finishes if present
-    if 'finishes' in data:
-        try:
-            validated['finishes'] = [Finish.model_validate(f) for f in data['finishes']]
-        except ValidationError as e:
-            errors.extend([f"Finishes validation failed: {err}" for err in e.errors()])
+
     
     if errors:
         raise ValidationError(
@@ -151,7 +145,6 @@ def convert_to_json_schema() -> Dict[str, Any]:
         "individual_guitar": IndividualGuitar.model_json_schema(),
         "source_attribution": SourceAttribution.model_json_schema(),
         "specifications": Specifications.model_json_schema(),
-        "finish": Finish.model_json_schema(),
         "guitar_submission": GuitarSubmission.model_json_schema(),
         "batch_submission": BatchSubmission.model_json_schema(),
     }
@@ -239,7 +232,6 @@ def get_validation_summary(data: Dict[str, Any]) -> Dict[str, Any]:
         "has_individual_guitar": "individual_guitar" in data,
         "has_source_attribution": "source_attribution" in data,
         "has_specifications": "specifications" in data,
-        "has_finishes": "finishes" in data and bool(data["finishes"]),
         "validation_errors": [],
         "is_valid": True
     }
