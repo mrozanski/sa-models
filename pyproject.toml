@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "guitar-registry-shared-models"
+name = "sa-models"
 version = "0.1.0"
 description = "Shared Pydantic models for guitar registry data structures"
 readme = "README.md"
@@ -38,12 +38,12 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/mrozanski/guitar-registry-shared-models"
-Repository = "https://github.com/mrozanski/guitar-registry-shared-models"
-Issues = "https://github.com/mrozanski/guitar-registry-shared-models/issues"
+Homepage = "https://github.com/mrozanski/sa-models"
+Repository = "https://github.com/mrozanski/sa-models"
+Issues = "https://github.com/mrozanski/sa-models/issues"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/guitar_registry_shared_models"]
+packages = ["src/sa_models"]
 
 [tool.black]
 line-length = 88

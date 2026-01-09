@@ -7,7 +7,7 @@ from decimal import Decimal
 from datetime import date
 from pydantic import ValidationError
 
-from guitar_registry_shared_models import (
+from sa_models import (
     Manufacturer,
     Model,
     IndividualGuitar,

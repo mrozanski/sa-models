@@ -10,21 +10,21 @@ This package provides a single source of truth for guitar data structures, ensur
 
 ### For Development
 ```bash
-git clone https://github.com/mrozanski/guitar-registry-shared-models.git
-cd guitar-registry-shared-models
+git clone https://github.com/mrozanski/sa-models.git
+cd sa-models
 pip install -e .
 ```
 
 ### For Production
 ```bash
-pip install guitar-registry-shared-models
+pip install sa-models
 ```
 
 ## Usage
 
 ### Basic Import
 ```python
-from eddie_shared_models import GuitarSubmission, Manufacturer, Model, IndividualGuitar
+from sa_models import GuitarSubmission, Manufacturer, Model, IndividualGuitar
 ```
 
 ### Data Validation
@@ -104,7 +104,7 @@ MANUFACTURER_SCHEMA = {
 
 **After (Pydantic):**
 ```python
-from eddie_shared_models import Manufacturer
+from sa_models import Manufacturer
 
 # Automatic validation with type hints
 manufacturer = Manufacturer(name="Gibson", country="USA")
@@ -131,7 +131,7 @@ manufacturer = Manufacturer(name="Gibson", country="USA")
 ### Testing
 ```bash
 pytest tests/
-pytest tests/ --cov=eddie_shared_models
+pytest tests/ --cov=sa_models
 ```
 
 ### Building

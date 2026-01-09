@@ -14,14 +14,14 @@ The migration involves:
 
 ### Option A: Install from PyPI (when published)
 ```bash
-pip install guitar-registry-shared-models
+pip install sa-models
 ```
 
 ### Option B: Install from local development
 ```bash
 # Clone the shared models repository
-git clone https://github.com/mrozanski/guitar-registry-shared-models.git
-cd guitar-registry-shared-models
+git clone https://github.com/mrozanski/sa-models.git
+cd sa-models
 pip install -e .
 ```
 
@@ -29,7 +29,7 @@ pip install -e .
 
 Add to your `requirements.txt` or `pyproject.toml`:
 ```
-guitar-registry-shared-models>=0.1.0
+sa-models>=0.1.0
 ```
 
 ## Step 3: Replace JSON Schema Validation
@@ -59,7 +59,7 @@ def validate_manufacturer(self, data: Dict) -> ValidationResult:
 
 ### After (using shared models):
 ```python
-from eddie_shared_models import Manufacturer, ValidationError
+from sa_models import Manufacturer, ValidationError
 
 def validate_manufacturer(self, data: Dict) -> ValidationResult:
     try:
@@ -86,7 +86,7 @@ jsonschema.validate(data, INDIVIDUAL_GUITAR_SCHEMA)
 jsonschema.validate(data, SPECIFICATIONS_SCHEMA)
 
 # New way
-from eddie_shared_models import Model, IndividualGuitar, Specifications
+from sa_models import Model, IndividualGuitar, Specifications
 
 Model.model_validate(data)
 IndividualGuitar.model_validate(data)
@@ -98,7 +98,7 @@ Specifications.model_validate(data)
 ### In `guitar_processor_cli.py`:
 
 ```python
-from eddie_shared_models import GuitarSubmission, BatchSubmission, ValidationError
+from sa_models import GuitarSubmission, BatchSubmission, ValidationError
 
 def load_json_file(self, file_path: str):
     """Load and validate JSON file using Pydantic models."""

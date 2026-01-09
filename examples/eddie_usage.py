@@ -5,7 +5,7 @@ This demonstrates how to create structured guitar data that will be
 validated and processed by the guitar registry system.
 """
 
-from guitar_registry_shared_models import (
+from sa_models import (
     GuitarSubmission,
     Manufacturer,
     Model,
@@ -242,7 +242,7 @@ def export_submissions():
         print(f"✓ Exported {filename}")
     
     # Export as batch
-    from guitar_registry_shared_models import BatchSubmission
+    from sa_models import BatchSubmission
     batch = BatchSubmission(submissions=submissions)
     
     with open("batch_submission.json", 'w') as f:
